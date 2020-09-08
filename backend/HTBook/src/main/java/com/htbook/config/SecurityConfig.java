@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.session.web.http.HttpSessionIdResolver;
 
-import com.htbook.util.SecurityUtil;
+import com.htbook.util.SecurityUtils;
 
 @Configuration
 @EnableWebSecurity
@@ -21,23 +21,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService uDetailsService;
 
 	// need to change later
-	private static final String[] PUBLIC_MATCHERS = { ""
-			+ "/css/**", "/js/**", "/image/**", "/book/**", 
-			"/customer/register"
-			};
+	private static final String[] PUBLIC_MATCHERS = { "" + "/css/**", "/js/**", "/image/**", "/book/**",
+			"/customer/register", "/user/login-google", "/user/login-facebook" };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 //		http.httpBasic().and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
 //				.permitAll().anyRequest().authenticated();
-		http.csrf().disable().cors().disable()
-		.httpBasic().and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
+		http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
 				.permitAll().anyRequest().authenticated();
+
+		// Chỉ cho phép user có quyền ADMIN truy cập đường dẫn /admin/**
+//		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+
+		// Chỉ cho phép user có quyền ADMIN hoặc USER truy cập đường dẫn /user/**
+		//http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(uDetailsService).passwordEncoder(SecurityUtil.passwordEncoder());
+		auth.userDetailsService(uDetailsService).passwordEncoder(SecurityUtils.passwordEncoder());
 	}
 
 	@Bean

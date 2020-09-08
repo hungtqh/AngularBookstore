@@ -14,19 +14,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     /*------------------
-        Date Picker
-    --------------------*/
-
-    $("#birthday").datepicker({
-      changeMonth: true,
-      changeYear: true,
-      dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
-      monthNamesShort: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5",
-        "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
-      dateFormat: "yy-mm-dd"
-    });
-
-    /*------------------
         Background Set
     --------------------*/
     $('.set-bg').each(function () {
@@ -34,110 +21,13 @@ export class AppComponent implements OnInit {
       $(this).css('background-image', 'url(' + bg + ')');
     });
 
-    // //Humberger Menu
-    // $(".humberger__open").on('click', function () {
-    //   $(".humberger__menu__wrapper").addClass("show__humberger__menu__wrapper");
-    //   $(".humberger__menu__overlay").addClass("active");
-    //   $("body").addClass("over_hid");
-    // });
-
-    // $(".humberger__menu__overlay").on('click', function () {
-    //   $(".humberger__menu__wrapper").removeClass("show__humberger__menu__wrapper");
-    //   $(".humberger__menu__overlay").removeClass("active");
-    //   $("body").removeClass("over_hid");
-    // });
-
-    /*------------------
-    Navigation
-  --------------------*/
-    // $(".mobile-menu").slicknav({
-    //   prependTo: '#mobile-menu-wrap',
-    //   allowParentLinks: true
-    // });
-
-    /*-----------------------
-        Categories Slider
-    ------------------------*/
-    $(".categories__slider").owlCarousel({
-      loop: true,
-      margin: 0,
-      items: 4,
-      dots: false,
-      nav: true,
-      navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-angle-right'><span/>"],
-      smartSpeed: 300,
-      autoHeight: false,
-      autoplay: true,
-      responsive: {
-
-        0: {
-          items: 1,
-        },
-
-        480: {
-          items: 2,
-        },
-
-        768: {
-          items: 3,
-        },
-
-        992: {
-          items: 4,
-        }
-      }
-    });
-
+    if (window.location.pathname === '/home') {
+      $('.hero__categories ul').slideToggle(400);
+    }
 
     $('.hero__categories__all').on('click', function () {
       $('.hero__categories ul').slideToggle(400);
     });
-
-    /*--------------------------
-        Latest Product Slider
-    ----------------------------*/
-    // $(".latest-product__slider").owlCarousel({
-    //   loop: true,
-    //   margin: 0,
-    //   items: 1,
-    //   dots: false,
-    //   nav: true,
-    //   navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-angle-right'><span/>"],
-    //   smartSpeed: 1200,
-    //   autoHeight: false,
-    //   autoplay: true
-    // });
-
-    /*-----------------------------
-        Product Discount Slider
-    -------------------------------*/
-    // $(".product__discount__slider").owlCarousel({
-    //   loop: true,
-    //   margin: 0,
-    //   items: 3,
-    //   dots: true,
-    //   smartSpeed: 1200,
-    //   autoHeight: false,
-    //   autoplay: true,
-    //   responsive: {
-
-    //     320: {
-    //       items: 1,
-    //     },
-
-    //     480: {
-    //       items: 2,
-    //     },
-
-    //     768: {
-    //       items: 2,
-    //     },
-
-    //     992: {
-    //       items: 3,
-    //     }
-    //   }
-    // });
 
     /*---------------------------------
         Product Details Pic Slider

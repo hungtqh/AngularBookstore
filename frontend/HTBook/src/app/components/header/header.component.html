@@ -3,7 +3,7 @@
     <div class="header__top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-9 col-md-9">
                     <div class="header__top__left">
                         <ul>
                             <li><i class="fa fa-truck"></i> Miễn phí giao hàng</li>
@@ -12,7 +12,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-3 col-md-3">
                     <div class="header__top__right">
                         <div class="header__top__right__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="../assets/img/logo.png" alt=""></a>
+                    <a href="/home"><img src="../assets/img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -48,28 +48,27 @@
                     <ul>
                         <li><a href="#"><i class="fa fa-user"></i></a></li>
                     </ul>
-                    <div class="header__btn__text"><span class="account_name">{{user && loggedIn ? user.customer.fullName : 'Tài khoản'}}</span>
+                    <div class="header__btn__text"><span
+                            class="account_name">{{user && loggedIn ? 'Chào ' + user.customer.fullName.substring(0, 3) + '...' : 'Tài khoản'}}</span>
                     </div>
 
                     <!-- Login Options -->
                     <div class="toggler cVRwHa" *ngIf="!loggedIn">
-                        <button (click)="onSwitchMode('login')" class="account-btn dYkBsI" data-toggle="modal" data-target="#accountModal">Đăng
+                        <button (click)="onSwitchMode('login')" class="account-btn dYkBsI" data-toggle="modal"
+                            data-target="#accountModal">Đăng
                             nhập</button>
-                        <button (click)="onSwitchMode('register')" class="account-btn dYkBsI" data-toggle="modal" data-target="#accountModal">Tạo tài
+                        <button (click)="onSwitchMode('register')" class="account-btn dYkBsI" data-toggle="modal"
+                            data-target="#accountModal">Tạo tài
                             khoản</button>
-                        <button class="account-btn eqGBml">
+                        <button class="account-btn eqGBml" (click)="onLoginFacebook()">
                             <span class="gUdFI"><i class="fa fa-facebook-square icon"></i>
                             </span>Đăng nhập bằng
                             Facebook
                         </button>
-                        <button class="account-btn fpkFKZ"><span class="gUdFI"><i
+                        <button (click)="onLoginGoogle()" class="account-btn fpkFKZ"><span class="gUdFI"><i
                                     class="fa fa-google icon"></i></span>Đăng nhập
                             bằng
                             Google
-                        </button>
-                        <button class="account-btn bsRyYf"><span class="gUdFI"><i
-                                    class="fa fa-commenting-o icon"></i></span>Đăng
-                            nhập bằng Zalo
                         </button>
                     </div>
 
@@ -92,20 +91,23 @@
 
                         <a href="/customer/coupons?src=header_my_account">
                             <p title="Mã giảm giá" class="cIuUsX"><span class="icon"><img
-                                        src="https://frontend.tikicdn.com/_desktop-next/static/img/mycoupon/coupon_code.svg"></span><span class="content"><span>Mã giảm giá</span><br><span>Bạn đang có <b>0</b> mã giảm
+                                        src="https://frontend.tikicdn.com/_desktop-next/static/img/mycoupon/coupon_code.svg"></span><span
+                                    class="content"><span>Mã giảm giá</span><br><span>Bạn đang có <b>0</b> mã giảm
                                         giá</span></span>
                             </p>
                         </a>
                         <a href="/customer/reward?src=header_my_account">
                             <p title="Thông tin Tiki Xu" class="Userstyle__UserDropDownItem-sc-6e6am-12 cIuUsX">
                                 <span class="icon"><img
-                                        src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/tikixu.svg"></span><span class="content"><span>Thông tin Huta Xu</span><br><span>Bạn đang có <b>0</b> Huta
+                                        src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/tikixu.svg"></span><span
+                                    class="content"><span>Thông tin Huta Xu</span><br><span>Bạn đang có <b>0</b> Huta
                                         xu</span></span>
                             </p>
                         </a>
 
                         <a (click)="onLogout()">
-                            <p title="Thoát tài khoản" class="Userstyle__UserDropDownItem-sc-6e6am-12 cIuUsX">Thoát tài khoản
+                            <p title="Thoát tài khoản" class="Userstyle__UserDropDownItem-sc-6e6am-12 cIuUsX">Thoát tài
+                                khoản
                             </p>
                         </a>
                     </div>
@@ -124,26 +126,28 @@
 <!-- Header Section End -->
 
 <div class="container">
+
+    <app-notification-modal *ngIf="loginMessage" [message]="loginMessage"></app-notification-modal>
+
     <div class="row">
         <div class="col-lg-12">
             <!-- Modal -->
             <div class="modal fade" id="accountModal" tabindex="-1" role="dialog">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <app-spinner *ngIf="spinner"></app-spinner>
-                    </div>
-                </div>
+                <app-spinner *ngIf="spinner"></app-spinner>
+
                 <div class="modal-dialog" role="document">
                     <div class="modal-content account-tabs">
                         <div class="kInmCv">
                             <div class="famyFO">
 
                                 <div class="nav" role="tablist">
-                                    <div class="bCSujG{{loginMode ? ' active' : ''}}" id="login-tab" data-toggle="tab" href="#login" role="tab">
+                                    <div class="bCSujG{{loginMode ? ' active' : ''}}" id="login-tab" data-toggle="tab"
+                                        href="#login" role="tab">
                                         Đăng nhập
                                     </div>
 
-                                    <div class="cuMNQR{{!loginMode ? ' active' : ''}}" id="register-tab" data-toggle="tab" href="#register" role="tab">Tạo tài khoản
+                                    <div class="cuMNQR{{!loginMode ? ' active' : ''}}" id="register-tab"
+                                        data-toggle="tab" href="#register" role="tab">Tạo tài khoản
                                     </div>
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -154,66 +158,82 @@
 
                             <div class="tab-content" id="myTabContent">
                                 <!-- Register form -->
-                                <div class="tab-pane fade dGmdpf{{!loginMode ? ' active show' : ''}}" id="register" role="tabpanel">
+                                <div class="tab-pane fade dGmdpf{{!loginMode ? ' active show' : ''}}" id="register"
+                                    role="tabpanel">
                                     <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
                                         <div class="hUNsqy">
                                             <label for="full_name">Họ tên</label>
-                                            <input type="text" id="full_name" name="full_name" formControlName="full_name" placeholder="Nhập họ tên" class="bYlDgr" value="">
-                                            <span class="help-block" *ngIf="registerForm.get('full_name').invalid && registerForm.get('full_name').touched">
+                                            <input type="text" id="full_name" name="full_name"
+                                                formControlName="full_name" placeholder="Nhập họ tên" class="bYlDgr"
+                                                value="">
+                                            <span class="help-block"
+                                                *ngIf="registerForm.get('full_name').invalid && registerForm.get('full_name').touched">
 
                                                 <span class="help-block"
                                                     *ngIf="registerForm.get('full_name').errors['invalidFullName']">Tên
                                                     phải chứa ít nhất 2 từ!</span>
 
-                                            <span class="help-block" *ngIf="registerForm.get('full_name').errors['required']">Nhập họ
+                                                <span class="help-block"
+                                                    *ngIf="registerForm.get('full_name').errors['required']">Nhập họ
                                                     tên!</span>
 
                                             </span>
                                         </div>
                                         <div class="hUNsqy">
                                             <label for="otp_code">SĐT</label>
-                                            <input type="text" id="phone_number" name="phone_number" formControlName="phone_number" placeholder="Nhập số điện thoại" class="bYlDgr" value="">
+                                            <input type="text" id="phone_number" name="phone_number"
+                                                formControlName="phone_number" placeholder="Nhập số điện thoại"
+                                                class="bYlDgr" value="">
 
                                             <span class="help-block" *ngIf="phoneExists">
                                                 Số điện thoại đã có người sử dụng!
                                             </span>
 
-                                            <span class="help-block" *ngIf="registerForm.get('phone_number').invalid && registerForm.get('phone_number').touched">
+                                            <span class="help-block"
+                                                *ngIf="registerForm.get('phone_number').invalid && registerForm.get('phone_number').touched">
 
                                                 <span class="help-block"
                                                     *ngIf="registerForm.get('phone_number').errors['required']">Nhập
                                                     số điện
                                                     thoại!</span>
-                                            <span class="help-block" *ngIf="!registerForm.get('phone_number').errors['required']">Số điện
+                                                <span class="help-block"
+                                                    *ngIf="!registerForm.get('phone_number').errors['required']">Số điện
                                                     thoại không hợp lệ!</span>
                                             </span>
                                         </div>
                                         <div class="hUNsqy">
                                             <label for="email">Email</label>
-                                            <input type="text" id="email" name="email" formControlName="email" placeholder="Nhập email" class="bYlDgr" value="">
+                                            <input type="text" id="email" name="email" formControlName="email"
+                                                placeholder="Nhập email" class="bYlDgr" value="">
 
                                             <span class="help-block" *ngIf="emailExists">
                                                 Email đã có người sử dụng!
                                             </span>
 
-                                            <span class="help-block" *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
+                                            <span class="help-block"
+                                                *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
                                                 <span class="help-block"
                                                     *ngIf="registerForm.get('email').errors['required']">Nhập
                                                     email!</span>
 
-                                            <span class="help-block" *ngIf="registerForm.get('email').errors['email']">Nhập
+                                                <span class="help-block"
+                                                    *ngIf="registerForm.get('email').errors['email']">Nhập
                                                     email hợp lệ!</span>
                                             </span>
                                         </div>
                                         <div class="hUNsqy">
                                             <label for="reg_password">Mật khẩu</label>
-                                            <input type="password" id="reg_password" name="reg_password" formControlName="reg_password" placeholder="Mật khẩu từ 6 đến 32 ký tự" class="bYlDgr" value="">
-                                            <span class="help-block" *ngIf="registerForm.get('reg_password').invalid && registerForm.get('reg_password').touched">
+                                            <input type="password" id="reg_password" name="reg_password"
+                                                formControlName="reg_password" placeholder="Mật khẩu từ 6 đến 32 ký tự"
+                                                class="bYlDgr" value="">
+                                            <span class="help-block"
+                                                *ngIf="registerForm.get('reg_password').invalid && registerForm.get('reg_password').touched">
                                                 <span class="help-block"
                                                     *ngIf="registerForm.get('reg_password').errors['required']">Nhập
                                                     mật
                                                     khẩu!</span>
-                                            <span class="help-block" *ngIf="!registerForm.get('reg_password').errors['required']">Nhập
+                                                <span class="help-block"
+                                                    *ngIf="!registerForm.get('reg_password').errors['required']">Nhập
                                                     mật
                                                     khẩu từ 6-32 ký tự!</span>
                                             </span>
@@ -237,7 +257,8 @@
                                                 </label>
                                             </span>
 
-                                            <span class="help-block" *ngIf="registerForm.get('gender').invalid && registerForm.get('gender').touched">
+                                            <span class="help-block"
+                                                *ngIf="registerForm.get('gender').invalid && registerForm.get('gender').touched">
 
                                                 <span style="display: block;" class="help-block"
                                                     *ngIf="registerForm.get('gender').errors['required']">Chọn
@@ -247,19 +268,28 @@
                                         </div>
                                         <div class="hUNsqy">
                                             <label for="birthday">Ngày sinh</label>
-                                            <input type="text" formControlName="birthday" id="birthday" name="birthday" placeholder="Nhập ngày sinh" class="bYlDgr" value="">
+                                            <input type="text" [matDatepicker]="picker" formControlName="birthday"
+                                                name="birthday" placeholder="Chọn ngày sinh" class="bYlDgr" value=""
+                                                [max]="maxDate" matInput>
 
-                                            <span class="help-block" *ngIf="registerForm.get('birthday').invalid && registerForm.get('birthday').touched">
+
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+                                            <mat-datepicker #picker disabled="false"></mat-datepicker>
+
+                                            <span class="help-block"
+                                                *ngIf="registerForm.get('birthday').invalid && registerForm.get('birthday').touched">
 
                                                 <span class="help-block"
-                                                    *ngIf="registerForm.get('birthday').errors['required']">Nhập
+                                                    *ngIf="registerForm.get('birthday').errors['required']">Chọn
                                                     ngày
                                                     sinh!</span>
 
                                             </span>
                                         </div>
                                         <div class="hUNsqy"><label for=""></label>
-                                            <div style="width: calc(100% - 75px); display: inline-block; margin-top: 25px;">
+                                            <div
+                                                style="width: calc(100% - 75px); display: inline-block; margin-top: 25px;">
                                                 <button type="submit" class="GBpke reg-btn">Tạo tài khoản</button>
                                             </div>
                                         </div>
@@ -267,12 +297,16 @@
                                 </div>
 
                                 <!-- Login Form -->
-                                <div class="tab-pane fade dGmdpf{{loginMode ? ' active show' : ''}}" id="login" role="tabpanel">
+                                <div class="tab-pane fade dGmdpf{{loginMode ? ' active show' : ''}}" id="login"
+                                    role="tabpanel">
                                     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
                                         <div class="hUNsqy"><label for="username">Email /
-                                                SĐT</label><input type="text" id="username" name="username" formControlName="username" placeholder="Nhập Email hoặc Số điện thoại" class="bYlDgr" value="">
+                                                SĐT</label><input type="text" id="username" name="username"
+                                                formControlName="username" placeholder="Nhập Email hoặc Số điện thoại"
+                                                class="bYlDgr" value="">
 
-                                            <span class="help-block" *ngIf="loginForm.get('username').invalid && loginForm.get('username').touched">
+                                            <span class="help-block"
+                                                *ngIf="loginForm.get('username').invalid && loginForm.get('username').touched">
 
                                                 <span class="help-block"
                                                     *ngIf="loginForm.get('username').errors['required']">Nhập
@@ -281,9 +315,12 @@
                                             </span>
                                         </div>
                                         <div class="hUNsqy"><label for="password">Mật
-                                                khẩu</label><input type="password" id="password" name="password" formControlName="password" placeholder="Nhập mật khẩu" class="bYlDgr" value="">
+                                                khẩu</label><input type="password" id="password" name="password"
+                                                formControlName="password" placeholder="Nhập mật khẩu" class="bYlDgr"
+                                                value="">
 
-                                            <span class="help-block" *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
+                                            <span class="help-block"
+                                                *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
 
                                                 <span class="help-block"
                                                     *ngIf="loginForm.get('password').errors['required']">Nhập
@@ -295,20 +332,16 @@
                                             <p class="forgot-password">Quên mật khẩu? Nhấn vào <a href="#">đây</a>
                                             </p>
                                             <button type="submit" class="account-btn GBpke">Đăng nhập</button>
-                                            <button type="button" class="account-btn kdniUC">
+                                            <button (click)="onLoginFacebook()" type="button"
+                                                class="account-btn kdniUC">
                                                 <span class="cKFcSW">
                                                     <i class="tikicon icon-facebook-white"></i>
                                                 </span>Đăng nhập bằng Facebook
                                             </button>
-                                            <button type="button" class="account-btn cqTOYU">
+                                            <button (click)="onLoginGoogle()" type="button" class="account-btn cqTOYU">
                                                 <span class="cKFcSW">
                                                     <i class="tikicon icon-google-white"></i>
                                                 </span>Đăng nhập bằng Google
-                                            </button>
-                                            <button type="button" class="account-btn jxznff">
-                                                <span class="cKFcSW">
-                                                    <i class="tikicon icon-zalo"></i>
-                                                </span>Đăng nhập bằng Zalo
                                             </button>
                                         </div>
                                     </form>
@@ -332,7 +365,7 @@
                         <i class="fa fa-bars"></i>
                         <span>DANH MỤC SÁCH</span>
                     </div>
-                    <ul class="{{display}}">
+                    <ul>
                         <li><a href="#">Sách Bán Chạy</a></li>
                         <li><a href="#">Sách Mới Phát Hành</a></li>
                         <li><a href="#">Sách Kinh Tế</a></li>

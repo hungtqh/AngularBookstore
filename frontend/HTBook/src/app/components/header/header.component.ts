@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Customer } from 'src/app/models/customer';
 import { User } from 'src/app/models/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AppConst } from 'src/app/utils/app-const';
 
 declare var $: any;
 
@@ -13,14 +14,14 @@ declare var $: any;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Input() display: string;
-
   loggedIn: boolean = false;
   loginError: boolean = false;
   loginMode: boolean = false;
   emailExists: boolean = false;
   phoneExists: boolean = false;
   spinner: boolean = false;
+  loginMessage: string;
+  maxDate: Date;
 
   searchForm: FormGroup;
   registerForm: FormGroup;
@@ -28,9 +29,72 @@ export class HeaderComponent implements OnInit {
 
   user: User;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    // max birthday date
+    this.maxDate = new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear());
+
+    // google login listener
+    this.route.queryParams.subscribe(params => {
+      let authCode = params['code'];
+      let loginPage = params['login-page'];
+
+      if (authCode) {
+
+        if (loginPage === 'google') {
+          this.authService.loginWithGoogle(authCode).subscribe(
+            res => {
+              console.log(res);
+              this.loggedIn = true;
+
+              //Remove query params
+              this.router.navigate([''], {
+                queryParams: {
+                  'code': null,
+                  'login-page': null
+                },
+                queryParamsHandling: 'merge'
+              })
+              this.getCurrentUser();
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        } else if (loginPage === 'facebook') {
+
+          this.authService.loginWithFacebook(authCode).subscribe(
+            res => {
+              console.log(res);
+
+              if (!res.hasEmail) {
+                this.loginMessage = 'Vui lòng cập nhật địa chỉ email cho tài khoản facebook của bạn rồi thực hiện lại!';
+              } else {
+                this.loggedIn = true;
+
+                //Remove query params
+                this.router.navigate([''], {
+                  queryParams: {
+                    'code': null,
+                    'login-page': null
+                  },
+                  queryParamsHandling: 'merge'
+                })
+                this.getCurrentUser();
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
+
+        }
+      }
+    }
+    );
 
     //Get current user
     this.getCurrentUser();
@@ -52,7 +116,7 @@ export class HeaderComponent implements OnInit {
       'email': new FormControl('', [Validators.required, Validators.email]),
       'reg_password': new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]),
       'gender': new FormControl('', Validators.required),
-      'birthday': new FormControl('', [])
+      'birthday': new FormControl({ value: '', disabled: true }, [Validators.required])
     }
     );
 
@@ -81,15 +145,15 @@ export class HeaderComponent implements OnInit {
     }
 
     let customer = new Customer();
-    customer.fullName = this.registerForm.get('full_name').value.trim();
-    customer.gender = this.registerForm.get('gender').value.trim();
-    customer.birthday = this.registerForm.get('birthday').value.trim();
+    customer.fullName = this.registerForm.get('full_name').value;
+    customer.gender = this.registerForm.get('gender').value;
+    customer.birthday = this.registerForm.get('birthday').value;
     customer.user = this.user;
 
     this.user = new User();
-    this.user.email = this.registerForm.get('email').value.trim();
-    this.user.phoneNumber = this.registerForm.get('phone_number').value.trim();
-    this.user.password = this.registerForm.get('reg_password').value.trim();
+    this.user.email = this.registerForm.get('email').value;
+    this.user.phoneNumber = this.registerForm.get('phone_number').value;
+    this.user.password = this.registerForm.get('reg_password').value;
     this.user.enabled = true;
     this.user.customer = customer;
 
@@ -128,6 +192,14 @@ export class HeaderComponent implements OnInit {
     this.login(username, password);
   }
 
+  onLoginGoogle() {
+    window.location.href = AppConst.googleLoginUrl;
+  }
+
+  onLoginFacebook() {
+    window.location.href = AppConst.facebookLoginUrl;
+  }
+
   onLogout() {
     this.authService.logout().subscribe(
       res => {
@@ -146,7 +218,6 @@ export class HeaderComponent implements OnInit {
         console.log(res);
         this.loggedIn = true;
         this.spinner = false;
-        this.loggedIn = true;
 
         this.getCurrentUser();
         $('#accountModal').modal('hide');

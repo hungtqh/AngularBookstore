@@ -418,6 +418,10 @@ ol {
     display: inline-block;
 }
 
+.header__btn.account ul {
+    margin-left: -5px;
+}
+
 .header__cart ul {
     margin-right: 25px;
 }
@@ -482,6 +486,10 @@ ol {
 
 
 /* Account Header */
+
+.cdk-overlay-container {
+    z-index: 1080;
+}
 
 .header__btn__wrap .account:hover .toggler {
     display: block;
@@ -642,7 +650,7 @@ ol {
 /* Account Modal */
 
 .modal-content.account-tabs button {
-    margin-left: -30px;
+    margin-left: -35px;
 }
 
 .modal-content.account-tabs button.reg-btn {
@@ -4293,5 +4301,23 @@ ul.reviews {
         font-size: 24px;
     }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

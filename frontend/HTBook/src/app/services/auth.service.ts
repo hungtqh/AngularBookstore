@@ -4,7 +4,7 @@ import { Customer } from '../models/customer';
 import { AppConst } from '../utils/app-const';
 import { tap } from 'rxjs/operators';
 import { User } from '../models/user';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,12 +39,63 @@ export class AuthService {
       'Authorization': basicHeader
     });
 
-    return this.http.get<{ 'token': 'value' }>(
+    return this.http.get<TokenData>(
       this.userPath + '/login',
       { headers: headers, responseType: 'json' }
     ).pipe(
       tap(res => {
-        localStorage.setItem("xAuthToken", res.token);
+        const expirationDate = new Date(new Date().getTime() + res.tokenTimeout * 1000);
+
+        localStorage.setItem('xAuthToken', res.token);
+        localStorage.setItem('expirationDate', JSON.stringify(expirationDate));
+      })
+    );
+  }
+
+  loginWithGoogle(authCode: string) {
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<TokenData>(
+      this.userPath + '/login-google',
+      authCode,
+      { headers: headers, responseType: 'json' }
+    ).pipe(
+      tap(res => {
+        if (!res) {
+          throw new Error('Code is invalid!');
+        }
+
+        const expirationDate = new Date(new Date().getTime() + res.tokenTimeout * 1000);
+
+        localStorage.setItem('xAuthToken', res.token);
+        localStorage.setItem('expirationDate', JSON.stringify(expirationDate));
+      })
+    );
+  }
+
+  loginWithFacebook(authCode: string) {
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<TokenData>(
+      this.userPath + '/login-facebook',
+      authCode,
+      { headers: headers, responseType: 'json' }
+    ).pipe(
+      tap(res => {
+        if (!res) {
+          throw new Error('invalidCode');
+        }
+
+        const expirationDate = new Date(new Date().getTime() + res.tokenTimeout * 1000);
+
+        localStorage.setItem('xAuthToken', res.token);
+        localStorage.setItem('expirationDate', JSON.stringify(expirationDate));
       })
     );
   }
@@ -62,6 +113,7 @@ export class AuthService {
   }
 
   logout() {
+
     let headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
@@ -72,6 +124,7 @@ export class AuthService {
     ).pipe(
       tap(res => {
         localStorage.removeItem('xAuthToken');
+        localStorage.removeItem('expirationDate');
         this.user.next(null);
       })
     );
@@ -79,8 +132,20 @@ export class AuthService {
 
   getCurrentUser() {
     let xAuthToken = localStorage.getItem('xAuthToken');
+    let expDate: Date;
+    let now = new Date();
 
-    if (xAuthToken === null) {
+    if (xAuthToken) {
+      expDate = new Date(JSON.parse(localStorage.getItem('expirationDate')));
+    }
+
+    if (expDate && expDate.getTime() < now.getTime()) {
+      xAuthToken = null;
+      localStorage.removeItem('xAuthToken');
+      localStorage.removeItem('expirationDate');
+    }
+
+    if (!xAuthToken) {
       return new Observable<User>(observer => {
         setInterval(() => {
           observer.next(null);
@@ -104,4 +169,10 @@ export class AuthService {
       })
     );
   }
+}
+
+export interface TokenData {
+  token: string,
+  tokenTimeout: number,
+  hasEmail: boolean
 }

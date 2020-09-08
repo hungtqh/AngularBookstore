@@ -1,0 +1,8 @@
+.modal-footer {
+    display: block;
+}
+
+.modal-body,
+.modal-footer button {
+    font-size: 13px;
+}

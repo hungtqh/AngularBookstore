@@ -15,7 +15,7 @@ import com.htbook.entity.Role;
 import com.htbook.entity.User;
 import com.htbook.entity.UserRole;
 import com.htbook.service.UserService;
-import com.htbook.util.SecurityUtil;
+import com.htbook.util.SecurityUtils;
 
 @RestController
 @RequestMapping("/customer")
@@ -35,7 +35,7 @@ public class CustomerController {
 			return new ResponseEntity<String>("emailExists", HttpStatus.BAD_REQUEST);
 		}
 
-		String encryptedPassword = SecurityUtil.passwordEncoder().encode(user.getPassword());
+		String encryptedPassword = SecurityUtils.passwordEncoder().encode(user.getPassword());
 		user.setPassword(encryptedPassword);
 
 		Role role = new Role();

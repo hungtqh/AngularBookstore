@@ -10,6 +10,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SpinnerComponent } from './utils/spinner/spinner.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { NotificationModalComponent } from './utils/notification-modal/notification-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './utils/material.module';
 
 @NgModule({
   declarations: [
@@ -18,14 +21,17 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     HomeComponent,
     FooterComponent,
     SpinnerComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    NotificationModalComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

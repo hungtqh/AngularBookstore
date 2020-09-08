@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class User {
@@ -22,8 +25,11 @@ public class User {
 	
 	private String email;
 	private String phoneNumber;
-	private String password;
 	private boolean enabled;
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private String password;
+	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

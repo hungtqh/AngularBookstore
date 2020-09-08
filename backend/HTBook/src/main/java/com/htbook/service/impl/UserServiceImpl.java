@@ -13,6 +13,7 @@ import com.htbook.dao.UserRepository;
 import com.htbook.entity.User;
 import com.htbook.entity.UserRole;
 import com.htbook.service.UserService;
+import com.htbook.util.AppUtils;
 
 @Service
 @Transactional
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
 
@@ -32,20 +33,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(User user, Set<UserRole> userRoles) {
-		//re-check
-		User localUser = userRepository.findByEmailOrPhoneNumber(user.getEmail(), user.getPhoneNumber());
+		String email = user.getEmail();
+		String phoneNumber = user.getPhoneNumber();
+		User localUser = null;
+		
+		if (!AppUtils.isEmpty(email)) {
+			localUser = userRepository.findByEmail(email);
+		} else if (!AppUtils.isEmpty(phoneNumber)) {
+			localUser = userRepository.findByPhoneNumber(phoneNumber);
+		}
 
 		if (localUser != null) {
 			LOG.info("User with username already exist. Nothing will be done. ");
 			return;
 		}
-		
+
 		for (UserRole ur : userRoles) {
 			roleRepository.save(ur.getRole());
 		}
 
 		user.getUserRoles().addAll(userRoles);
-		
+
 		userRepository.save(user);
 	}
 

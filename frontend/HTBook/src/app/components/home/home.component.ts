@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConst } from 'src/app/utils/app-const';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 declare var $: any;
 @Component({
   selector: 'app-home',
@@ -17,7 +19,38 @@ export class HomeComponent implements OnInit {
       $(this).css('background-image', 'url(' + bg + ')');
     });
 
+    /*-----------------------
+        Categories Slider
+    ------------------------*/
+    $(".categories__slider").owlCarousel({
+      loop: true,
+      margin: 0,
+      items: 4,
+      dots: false,
+      nav: true,
+      navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-angle-right'><span/>"],
+      smartSpeed: 300,
+      autoHeight: false,
+      autoplay: true,
+      responsive: {
 
+        0: {
+          items: 1,
+        },
+
+        480: {
+          items: 2,
+        },
+
+        768: {
+          items: 3,
+        },
+
+        992: {
+          items: 4,
+        }
+      }
+    });
   }
 
 }
