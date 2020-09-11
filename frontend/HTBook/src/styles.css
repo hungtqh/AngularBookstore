@@ -461,6 +461,16 @@ ol {
     right: -12px;
 }
 
+input.ng-invalid.ng-touched {
+    border: 1px solid rgb(169, 68, 66);
+}
+
+.help-block {
+    color: rgb(169, 68, 66);
+    font-size: 11px;
+    margin-top: 5px;
+}
+
 .header__btn .header__btn__text {
     font-size: 14px;
     color: #6f6f6f;
@@ -651,6 +661,10 @@ ol {
 
 .modal-content.account-tabs button {
     margin-left: -35px;
+}
+
+#profileForm .mat-icon-button {
+    margin-left: -40px;
 }
 
 .modal-content.account-tabs button.reg-btn {
@@ -860,7 +874,8 @@ ol {
 }
 
 .account-btn:hover,
-.reg-btn:hover {
+.reg-btn:hover,
+.c-form-control button:hover {
     opacity: 0.85;
 }
 
@@ -1735,6 +1750,23 @@ ol {
     margin: 0px 0px 12px;
 }
 
+.fIHplW {
+    padding: 7px;
+    font-size: 13px;
+    line-height: 19px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(38, 188, 78);
+    border: 1px solid rgb(38, 188, 78);
+    border-radius: 4px;
+}
+
+.fIHplW svg {
+    margin: 0px 5px 0px 0px;
+}
+
 .hBHoW img {
     width: 45px;
     margin: 0px 12px 0px 0px;
@@ -1967,13 +1999,16 @@ ol {
 }
 
 .irgDVD .c-form-control>div {
-    display: flex;
     position: relative;
     flex: 1 1 0%;
 }
 
 .irgDVD .c-form-control input {
-    flex: 1 1 0%;
+    width: 100%;
+}
+
+.bYlDgr:focus {
+    border-color: rgb(102, 175, 233);
 }
 
 .euTTxE {

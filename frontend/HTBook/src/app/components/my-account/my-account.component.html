@@ -22,10 +22,8 @@
                 </div>
                 <ul class="uSLJP nav" id="myTab" role="tablist">
                     <li>
-                        <a class="{{ page === 'profile' ? 'is-active' : '' }}" id="my-account-tab" data-toggle="tab"
-                            href="#my-account" role="tab" aria-selected="true">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24"
-                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <a class="{{ page === 'profile' ? 'is-active' : '' }}" id="my-account-tab" data-toggle="tab" href="#my-account" role="tab" aria-selected="true">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
                                 </path>
@@ -42,8 +40,7 @@
                     </li>
                     <li>
                         <a id="my-order-tab" data-toggle="tab" href="#my-order" role="tab" aria-selected="false">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24"
-                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M13 12h7v1.5h-7zm0-2.5h7V11h-7zm0 5h7V16h-7zM21 4H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15h-9V6h9v13z">
                                 </path>
@@ -69,8 +66,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/nhan-xet-san-pham-ban-da-mua"><img class="icon"
-                                src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/review-2.svg"><span>Nhận
+                        <a href="/nhan-xet-san-pham-ban-da-mua"><img class="icon" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/review-2.svg"><span>Nhận
                                 xét sản phẩm đã mua</span></a>
                     </li>
                     <li><a href="/danh-rieng-cho-ban"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
@@ -96,54 +92,75 @@
                             </svg><span>Nhận xét của tôi</span></a></li>
 
                     <li>
-                        <a class="" href="/customer/coupons"><img class="icon"
-                                src="https://frontend.tikicdn.com/_desktop-next/static/img/mycoupon/coupon_code.svg"><span>Mã
+                        <a class="" href="/customer/coupons"><img class="icon" src="https://frontend.tikicdn.com/_desktop-next/static/img/mycoupon/coupon_code.svg"><span>Mã
                                 giảm giá</span></a>
                     </li>
                     <li>
-                        <a href="/customer/reward" class=""><img class="icon"
-                                srcset="https://salt.tikicdn.com/ts/upload/b5/33/14/09096979a40d25a2ad3976e3809ceb78.png 2x, https://salt.tikicdn.com/ts/upload/4a/d4/da/77fe4fd0c771088f7794ba3ce66782eb.png 1x"><span>Quản
+                        <a href="/customer/reward" class=""><img class="icon" srcset="https://salt.tikicdn.com/ts/upload/b5/33/14/09096979a40d25a2ad3976e3809ceb78.png 2x, https://salt.tikicdn.com/ts/upload/4a/d4/da/77fe4fd0c771088f7794ba3ce66782eb.png 1x"><span>Quản
                                 lý Huta Xu của tôi</span></a>
                     </li>
 
                 </ul>
             </aside>
             <div class="tab-content" id="myTabContent">
-                <div class="edAZXd tab-pane fade {{ page === 'profile' ? 'active show' : '' }}" id="my-account"
-                    role="tabpanel" aria-labelledby="my-account-tab">
+                <div class="edAZXd tab-pane fade {{ page === 'profile' ? 'active show' : '' }}" id="my-account" role="tabpanel" aria-labelledby="my-account-tab">
+                    <div type="success" *ngIf="updateSuccess" class="fIHplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#26BC4E" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" style="color: rgb(38, 188, 78);">
+                            <path
+                                d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z">
+                            </path>
+                        </svg><span>Thông tin tài khoản của bạn đã được cập nhật.</span>
+                    </div>
                     <h3 class="jZJmua">Thông tin tài khoản</h3>
                     <div class="irgDVD">
-                        <form>
+
+                        <!-- Profile Form -->
+                        <form [formGroup]="profileForm" (ngSubmit)="onUpdateSubmit()" id="profileForm">
                             <div class="c-form-control "><label class="input-label">Họ tên</label>
                                 <div>
-                                    <input type="text" name="fullName" maxlength="128" class="bYlDgr"
-                                        value="{{user.customer.fullName}}" placeholder="Nhập họ tên">
+                                    <input type="text" name="fullName" formControlName="fullName" maxlength="128" class="bYlDgr" placeholder="Nhập họ tên">
+
+                                    <span class="help-block" *ngIf="profileForm.get('fullName').invalid && profileForm.get('fullName').touched">
+
+                                        <span class="help-block"
+                                            *ngIf="profileForm.get('fullName').errors['invalidFullName']">Tên
+                                            phải chứa ít nhất 2 từ!</span>
+
+                                    <span class="help-block" *ngIf="profileForm.get('fullName').errors['required']">Nhập
+                                            họ
+                                            tên!</span>
+
+                                    </span>
                                 </div>
                             </div>
                             <div class="c-form-control ">
                                 <label class="input-label">Số điện thoại</label>
                                 <div>
-                                    <input type="tel" name="phoneNumber"
-                                        placeholder="Hãy nhập SĐT để trải nghiệm tốt hơn" class="bYlDgr"
-                                        value="{{user.phoneNumber}}" [disabled]="user.phoneNumber">
+                                    <input type="tel" formControlName="phoneNumber" name="phoneNumber" placeholder="Hãy nhập SĐT để trải nghiệm tốt hơn" class="bYlDgr">
+                                    <span class="help-block" *ngIf="phoneExists">
+                                        Số điện thoại đã có người sử dụng!
+                                    </span>
+
+                                    <span class="help-block" *ngIf="profileForm.get('phoneNumber').invalid && profileForm.get('phoneNumber').touched">
+
+                                        <span class="help-block"
+                                            *ngIf="profileForm.get('phoneNumber').errors['pattern']">Số điện
+                                            thoại không hợp lệ!</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="c-form-control">
                                 <label class="input-label">Email</label>
-                                <input type="text" class="bYlDgr" value="{{user.email}}" placeholder="Nhập email"
-                                    disabled>
+                                <input type="text" class="bYlDgr" formControlName="email" name="email" placeholder="Nhập email">
                             </div>
                             <div class="c-form-control">
                                 <label class="input-label">Giới tính</label>
                                 <label class="euTTxE">
-                                    <input type="radio" name="gender" value="male"
-                                        [checked]="user.customer.gender === 'male'">
+                                    <input type="radio" name="gender" value="male" formControlName="gender">
                                     <span class="radio-fake"></span>
                                     <span class="label">Nam</span>
                                 </label>
                                 <label class="euTTxE">
-                                    <input type="radio" name="gender" value="female"
-                                        [checked]="user.customer.gender === 'female'">
+                                    <input type="radio" name="gender" value="female" formControlName="gender">
                                     <span class="radio-fake"></span>
                                     <span class="label">Nữ</span>
                                 </label>
@@ -153,39 +170,83 @@
 
                                 </label>
 
-                                <input type="text" id="birthday" name="birthday" placeholder="Nhập ngày sinh"
-                                    class="bYlDgr" value="{{user.customer.birthday |  date: 'dd/MM/yyyy'}}">
+                                <input type="text" (keypress)="picker.open()" (click)="picker.open()" [matDatepicker]="picker" name="birthday" placeholder="Chọn ngày sinh" class="bYlDgr" [max]="maxDate" matInput formControlName="birthday">
+
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+                                <mat-datepicker #picker disabled="false"></mat-datepicker>
 
                             </div>
 
                             <div class="c-form-control">
                                 <label class="input-label">&nbsp;</label>
                                 <label class="gkoeQY">
-                                    <input type="checkbox">
+                                    <input type="checkbox" (change)="toggleEditable($event)">
                                     <span class="checkbox-fake"></span>
                                     <span class="label">Thay đổi mật khẩu</span>
+                                    <span class="help-block text-dark d-block">
+                                        (Nhập mật khẩu cũ và mới giống nhau để tạo mật khẩu khi đăng nhập bằng google và
+                                        facebook)
+                                    </span>
                                 </label>
                             </div>
 
                             <div class="c-form-control ">
                                 <label class="input-label">Mật khẩu cũ</label>
                                 <div>
-                                    <input type="password" required="" name="oldPassword" placeholder="Nhập mật khẩu cũ"
-                                        class="bYlDgr" value="" disabled>
+                                    <input type="password" required name="password" formControlName="password" placeholder="Nhập mật khẩu cũ" class="bYlDgr">
+                                    <span class="help-block" *ngIf="oldPasswordIncorrect">
+                                        Mật khẩu cũ không đúng!
+                                    </span>
+
+                                    <span class="help-block" *ngIf="profileForm.get('password').invalid && profileForm.get('password').touched">
+                                        <span class="help-block"
+                                            *ngIf="profileForm.get('password').errors['required']">Nhập
+                                            mật
+                                            khẩu cũ!</span>
+                                    <span class="help-block" *ngIf="!profileForm.get('password').errors['required']">Nhập
+                                            mật
+                                            khẩu từ 6-32 ký tự!</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="c-form-control ">
                                 <label class="input-label">Mật khẩu mới</label>
                                 <div>
-                                    <input type="password" required="" name="password"
-                                        placeholder="Mật khẩu từ 6 đến 32 ký tự" class="bYlDgr" value="" disabled>
+                                    <input type="password" required name="newPassword" formControlName="newPassword" placeholder="Mật khẩu từ 6 đến 32 ký tự" class="bYlDgr">
+
+                                    <span class="help-block" *ngIf="profileForm.get('newPassword').invalid && profileForm.get('newPassword').touched">
+                                        <span class="help-block"
+                                            *ngIf="profileForm.get('newPassword').errors['required']">Nhập
+                                            mật
+                                            khẩu mới!</span>
+                                    <span class="help-block" *ngIf="!profileForm.get('newPassword').errors['required']">Nhập
+                                            mật
+                                            khẩu từ 6-32 ký tự!</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="c-form-control ">
                                 <label class="input-label">Nhập lại</label>
                                 <div>
-                                    <input type="password" required="" name="passwordConfirm"
-                                        placeholder="Nhập lại mật khẩu mới" class="bYlDgr" value="" disabled>
+                                    <input type="password" required name="passwordConfirm" formControlName="passwordConfirm" placeholder="Nhập lại mật khẩu mới" class="bYlDgr">
+
+                                    <span class="help-block" *ngIf="profileForm.get('passwordConfirm').invalid && profileForm.get('passwordConfirm').touched">
+
+                                        <span class="help-block"
+                                            *ngIf="profileForm.get('passwordConfirm').errors['required']">Nhập
+                                            lại mật
+                                            khẩu mới!</span>
+
+                                    <span class="help-block d-block" *ngIf="profileForm.getError('passwordMismatch') && 
+                                    profileForm.get('passwordConfirm').value.length > 0">Mật
+                                            khẩu
+                                            không trùng khớp!</span>
+
+                                    <span class="help-block" *ngIf="!profileForm.get('passwordConfirm').errors['required']">Nhập
+                                            mật
+                                            khẩu từ 6-32 ký tự!</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="c-form-control">

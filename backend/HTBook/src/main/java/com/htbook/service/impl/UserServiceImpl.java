@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByPhoneNumber(phone);
 	}
 
+	@Override
+	public void save(User user) {
+		userRepository.save(user);
+	}
+
 }

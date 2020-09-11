@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
       $(this).css('background-image', 'url(' + bg + ')');
     });
 
-    if (window.location.pathname === '/home') {
+    if (window.location.pathname === '/home' || window.location.pathname === '/') {
       $('.hero__categories ul').slideToggle(400);
     }
 

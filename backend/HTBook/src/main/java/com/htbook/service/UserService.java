@@ -11,4 +11,5 @@ public interface UserService {
 	User findByPhone(String phone);
 	User findByEmailOrPhone(String username);
 	void createUser(User user, Set<UserRole> userRoles);
+	void save(User user);
 }

@@ -10,9 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -22,19 +22,22 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String email;
 	private String phoneNumber;
 	private boolean enabled;
-	
+
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
-	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Transient
+	private String newPassword;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles;
-	
+
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Customer customer;
 
@@ -69,6 +72,14 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
 
 	public boolean isEnabled() {
 		return enabled;
@@ -93,6 +104,5 @@ public class User {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	
-	
+
 }

@@ -28,11 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 //		http.httpBasic().and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
 //				.permitAll().anyRequest().authenticated();
-		http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
+		http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
+		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+		.antMatchers(PUBLIC_MATCHERS)
 				.permitAll().anyRequest().authenticated();
-
-		// Chỉ cho phép user có quyền ADMIN truy cập đường dẫn /admin/**
-//		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
 
 		// Chỉ cho phép user có quyền ADMIN hoặc USER truy cập đường dẫn /user/**
 		//http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");

@@ -1,0 +1,23 @@
+<h3 class="jZJmua text-center">Thêm danh mục sản phẩm</h3>
+<div class="irgDVD">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-2">
+                <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="name">Tên danh mục</label>
+                        <input type="text" class="form-control" id="name" placeholder="Nhập tên danh mục" formControlName="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">URL hình ảnh</label>
+                        <input type="text" class="form-control" name="imagePath" id="imagePath" placeholder="Nhập địa chỉ hình ảnh" #imagePath formControlName="imagePath">
+                        <img [src]="imagePath.value" class="img-fluid rounded mx-auto d-block mt-3" style="height: 200px; width: 200px;">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

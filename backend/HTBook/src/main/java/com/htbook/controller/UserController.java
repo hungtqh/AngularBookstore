@@ -159,11 +159,6 @@ public class UserController {
 		return returnData;
 	}
 
-	@GetMapping("/checkSession")
-	public ResponseEntity<String> checkSession() {
-		return new ResponseEntity<String>("Session Active!", HttpStatus.OK);
-	}
-
 	@GetMapping(value = "/logout")
 	public ResponseEntity<String> logout() {
 		SecurityContextHolder.clearContext();

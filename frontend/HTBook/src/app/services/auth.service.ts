@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Customer } from '../models/customer';
 import { AppConst } from '../utils/app-const';
 import { tap } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -25,6 +24,19 @@ export class AuthService {
 
     return this.http.post(
       this.customerPath + '/register',
+      JSON.stringify(user),
+      { headers: headers, responseType: 'text' }
+    );
+  }
+
+  updateProfile(user: User) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'x-auth-token': localStorage.getItem('xAuthToken')
+    });
+
+    return this.http.post(
+      this.customerPath + '/updateProfile',
       JSON.stringify(user),
       { headers: headers, responseType: 'text' }
     );
@@ -97,18 +109,6 @@ export class AuthService {
         localStorage.setItem('xAuthToken', res.token);
         localStorage.setItem('expirationDate', JSON.stringify(expirationDate));
       })
-    );
-  }
-
-  checkSession() {
-
-    let headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
-    });
-
-    return this.http.get(
-      this.userPath + '/checkSession',
-      { headers: headers, responseType: 'text' }
     );
   }
 

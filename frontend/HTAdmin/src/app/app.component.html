@@ -1,0 +1,10 @@
+<app-header *ngIf="isAuthenticated"></app-header>
+<div class="admin-panel" *ngIf="isAuthenticated">
+    <app-menu-sidebar></app-menu-sidebar>
+    <div class="tab-content" style="position: relative; left: 254px;">
+        <div class="edAZXd">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<app-signin *ngIf="!isAuthenticated"></app-signin>

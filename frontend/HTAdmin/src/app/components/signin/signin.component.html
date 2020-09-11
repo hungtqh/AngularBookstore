@@ -1,0 +1,23 @@
+<app-spinner *ngIf="spinner"></app-spinner>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3" style="border: 1px solid rgb(15, 142, 221); margin-top: 120px;">
+            <div class="dGmdpf" id="login">
+                <h4 class="text-center">Đăng nhập</h4>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="hUNsqy"><label for="email">Email</label>
+                        <input type="text" id="email" name="email" placeholder="Nhập Email" class="bYlDgr" value="" formControlName="email">
+                    </div>
+                    <div class="hUNsqy"><label for="password">Mật
+                            khẩu</label><input type="password" id="password" name="password" placeholder="Nhập mật khẩu" class="bYlDgr" value="" formControlName="password">
+                    </div>
+                    <div style="padding: 0 110px;">
+                        <p class="forgot-password">Quên mật khẩu? Nhấn vào <a href="#">đây</a>
+                        </p>
+                        <button type="submit" class="account-btn GBpke">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

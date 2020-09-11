@@ -35,9 +35,8 @@ export class HeaderComponent implements OnInit {
 
     // max birthday date
     this.maxDate = new Date();
-    this.maxDate.setFullYear(this.maxDate.getFullYear());
 
-    // google login listener
+    // facebook and google login listener
     this.route.queryParams.subscribe(params => {
       let authCode = params['code'];
       let loginPage = params['login-page'];
@@ -99,24 +98,13 @@ export class HeaderComponent implements OnInit {
     //Get current user
     this.getCurrentUser();
 
-    // Check session
-    this.authService.checkSession().subscribe(
-      res => {
-        this.loggedIn = true;
-        console.log(res);
-      },
-      error => {
-        this.loggedIn = false;
-      }
-    );
-
     this.registerForm = new FormGroup({
       'full_name': new FormControl('', [Validators.required, this.validateFullName]),
       'phone_number': new FormControl('', [Validators.required, Validators.pattern('(09|03|07|08|05)+([0-9]{8})')]),
       'email': new FormControl('', [Validators.required, Validators.email]),
       'reg_password': new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]),
       'gender': new FormControl('', Validators.required),
-      'birthday': new FormControl({ value: '', disabled: true }, [Validators.required])
+      'birthday': new FormControl('', [Validators.required])
     }
     );
 
@@ -134,12 +122,7 @@ export class HeaderComponent implements OnInit {
 
     // show error message and not submit
     if (this.registerForm.invalid) {
-      this.registerForm.get('gender').markAsTouched();
-      this.registerForm.get('full_name').markAsTouched();
-      this.registerForm.get('phone_number').markAsTouched();
-      this.registerForm.get('email').markAsTouched();
-      this.registerForm.get('reg_password').markAsTouched();
-      this.registerForm.get('birthday').markAsTouched();
+      this.registerForm.markAllAsTouched();
 
       return;
     }
@@ -181,8 +164,7 @@ export class HeaderComponent implements OnInit {
 
   onLoginSubmit() {
     if (this.loginForm.invalid) {
-      this.loginForm.get('username').markAsTouched();
-      this.loginForm.get('password').markAsTouched();
+      this.loginForm.markAllAsTouched();
       return;
     }
 
@@ -232,12 +214,14 @@ export class HeaderComponent implements OnInit {
 
   getCurrentUser() {
     this.authService.getCurrentUser().subscribe(
-      res => {
-        this.user = res;
-        console.log(res);
+      user => {
+        this.user = user;
+        console.log(user);
+        this.loggedIn = !!user;
       },
       error => {
         //console.log(error);
+        this.loggedIn = false;
       }
     );
   }
