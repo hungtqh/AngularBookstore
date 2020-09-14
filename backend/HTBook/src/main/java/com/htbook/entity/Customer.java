@@ -1,12 +1,14 @@
 package com.htbook.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +30,11 @@ public class Customer {
 	
 	@OneToOne
 	@JsonIgnore
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id", nullable = false)
 	private User user;
+	
+	@OneToMany(mappedBy = "customer")
+	private List<Review> reviews;
 
 	public Long getId() {
 		return id;

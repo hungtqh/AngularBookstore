@@ -1,11 +1,16 @@
 package com.htbook.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class SubCategory {
@@ -19,6 +24,10 @@ public class SubCategory {
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable = false)
 	private Category category;
+	
+	@OneToMany(mappedBy = "subCategory")
+	@JsonIgnore
+	private List<Book> books;
 
 	public Long getId() {
 		return id;

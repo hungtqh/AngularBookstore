@@ -12,6 +12,10 @@ import { CategoryEditComponent } from './components/category/category-edit/categ
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './utils/spinner/spinner.component';
+import { SubCategoryComponent } from './components/category/sub-category/sub-category.component';
+import { SubCategoryEditComponent } from './components/category/sub-category/sub-category-edit/sub-category-edit.component';
+import { BookComponent } from './components/book/book.component';
+import { BookEditComponent } from './components/book/book-edit/book-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { SpinnerComponent } from './utils/spinner/spinner.component';
     DashboardComponent,
     SigninComponent,
     CategoryEditComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SubCategoryComponent,
+    SubCategoryEditComponent,
+    BookComponent,
+    BookEditComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +39,8 @@ import { SpinnerComponent } from './utils/spinner/spinner.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

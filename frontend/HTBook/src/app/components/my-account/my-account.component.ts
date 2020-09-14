@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+declare var $: any;
 
 @Component({
   selector: 'app-my-account',
@@ -25,6 +26,9 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
+
+    $('.hero__categories ul').removeClass('d-block');
+    $('.hero__categories ul').addClass('d-none');
 
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;

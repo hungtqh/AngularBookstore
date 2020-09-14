@@ -1,0 +1,20 @@
+<h3 class="jZJmua text-center">{{editMode ? 'Cập nhật' : 'Thêm'}} danh mục con</h3>
+<div class="irgDVD">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-2">
+                <form [formGroup]="subCategoryForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="name">Tên danh mục con</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên danh mục" formControlName="name">
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">{{editMode ? 'Cập nhật' : 'Thêm'}}</button>
+                        <button routerLink="{{editMode ? '../../' : '../'}}" type="submit" class="btn btn-secondary ml-2">Hủy bỏ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

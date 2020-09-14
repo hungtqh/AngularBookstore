@@ -1,0 +1,30 @@
+<h3 class="jZJmua">Danh mục con</h3>
+<div class="irgDVD">
+    <button routerLink="add" class="btn btn-primary d-block ml-auto mb-2 btn-sm">Thêm
+        danh
+        mục con</button>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered table-sm text-center">
+                <thead>
+                    <tr>
+                        <th style="width: 30%">ID</th>
+                        <th style="width: 40%">Tên danh mục con</th>
+                        <th style="width: 30%">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let subCategory of subCategories">
+                        <td>{{subCategory.id}}</td>
+                        <td>{{subCategory.name}}</td>
+                        <td>
+
+                            <a routerLink="edit/{{subCategory.id}}" title="Sửa" class="btn btn-outline-secondary btn-sm mr-1"><i class="fa fa-pencil"></i></a>
+                            <a title="Xóa" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

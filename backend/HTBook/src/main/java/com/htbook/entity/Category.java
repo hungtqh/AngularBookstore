@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Category {
 
@@ -19,8 +21,16 @@ public class Category {
 	private String imageUrl;
 
 	@OneToMany(mappedBy = "category")
+	@JsonIgnore
 	private List<SubCategory> subCategories;
 
+	public Category(Long id) {
+		this.id = id;
+	}
+	
+	public Category() {
+	}
+	
 	public Long getId() {
 		return id;
 	}

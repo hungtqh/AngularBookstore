@@ -21,14 +21,6 @@ export class AppComponent implements OnInit {
       $(this).css('background-image', 'url(' + bg + ')');
     });
 
-    if (window.location.pathname === '/home' || window.location.pathname === '/') {
-      $('.hero__categories ul').slideToggle(400);
-    }
-
-    $('.hero__categories__all').on('click', function () {
-      $('.hero__categories ul').slideToggle(400);
-    });
-
     /*---------------------------------
         Product Details Pic Slider
     ----------------------------------*/

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppConst } from 'src/app/utils/app-const';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 declare var $: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,6 +16,12 @@ export class HomeComponent implements OnInit {
       var bg = $(this).data('setbg');
       $(this).css('background-image', 'url(' + bg + ')');
     });
+
+    $('.hero__categories ul').addClass('d-block');
+
+    // $('.hero__categories__all').on('click', function () {
+    //   $('.hero__categories ul').slideToggle(400);
+    // });
 
     /*-----------------------
         Categories Slider

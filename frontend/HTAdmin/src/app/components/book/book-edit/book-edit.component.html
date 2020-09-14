@@ -1,0 +1,122 @@
+<h3 class="jZJmua text-center">{{editMode ? 'Cập nhật' : 'Thêm'}} sách</h3>
+<div class="irgDVD">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-2">
+                <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="title">Tên sách</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tên sách" formControlName="title">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="category">Danh mục</label>
+                                <select (change)="onCategoryChange($event)" name="category" class="form-control" id="category" formControlName="category">
+                                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="subCategory">Danh mục con</label>
+                                <select name="subCategory" class="form-control" id="subCategory" formControlName="subCategory">
+                                    <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">
+                                        {{subCategory.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageUrl">URL hình ảnh</label>
+                        <input type="text" class="form-control" name="imageUrl" id="imageUrl" placeholder="Nhập địa chỉ hình ảnh" #imageUrl formControlName="imageUrl">
+                        <img [src]="imageUrl.value" class="img-fluid rounded mx-auto d-block mt-3 img-thumbnail">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author">Tác giả</label>
+                        <input type="text" class="form-control" id="author" name="author" placeholder="Nhập tên tác giả" formControlName="author">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher">Nhà xuất bản</label>
+                        <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Nhập tên nhà xuất bản" formControlName="publisher">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publicationDate">Ngày xuất bản</label>
+                        <input type="text" class="form-control" id="publicationDate" name="publicationDate" placeholder="Nhập ngày xuất bản" formControlName="publicationDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cover">Loại bìa</label>
+
+                        <span class="ml-3">Bìa cứng <input type="radio" name="cover" value="hardcover"
+                                formControlName="cover"></span>
+
+                        <span class="ml-3">Bìa mềm <input type="radio" name="cover" value="softcover"
+                                formControlName="cover"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agency">Nhà phát hành</label>
+                        <input type="text" class="form-control" id="agency" name="agency" placeholder="Nhập tên nhà phát hành" formControlName="agency">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="listPrice">Giá niêm yết(đ)</label>
+                                <input type="number" min="0" class="form-control" id="listPrice" name="listPrice" placeholder="Nhập giá niêm yết(đồng)" formControlName="listPrice">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="discountRate">Chiết khấu(%)</label>
+                                <input type="number" min="0" max="100" class="form-control" id="discountRate" name="discountRate" placeholder="Nhập chiết khấu(%)" formControlName="discountRate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="pages">Số trang</label>
+                                <input type="number" min="0" class="form-control" id="pages" name="pages" placeholder="Nhập số trang" formControlName="pages">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="size">Kích thước(cm)</label>
+                                <input type="text" class="form-control" id="size" name="size" placeholder="Dài x Rộng(cm)" formControlName="size">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="sku">Mã sản phẩm</label>
+                                <input type="text" class="form-control" id="sku" name="sku" placeholder="Nhập mã sản phẩm" formControlName="sku">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="quantityInStock">Số lượng</label>
+                                <input type="number" min="0" class="form-control" id="quantityInStock" name="quantityInStock" placeholder="Nhập số lượng" formControlName="quantityInStock">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="active">Hiển thị bán hàng</label>
+
+                        <input class="ml-3" type="checkbox" name="active" id="active" formControlName="active">
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">{{editMode ? 'Cập nhật' : 'Thêm'}}</button>
+                        <button routerLink="{{editMode ? '../../' : '../'}}" type="submit" class="btn btn-secondary ml-2">Hủy
+                            bỏ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

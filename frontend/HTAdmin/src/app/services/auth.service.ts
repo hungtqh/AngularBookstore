@@ -37,18 +37,6 @@ export class AuthService {
     );
   }
 
-  checkSession() {
-
-    let headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
-    });
-
-    return this.http.get(
-      this.adminPath + '/checkSession',
-      { headers: headers, responseType: 'text' }
-    );
-  }
-
   logout() {
 
     let headers = new HttpHeaders({
@@ -110,6 +98,5 @@ export class AuthService {
 
 export interface TokenData {
   token: string,
-  tokenTimeout: number,
-  hasEmail: boolean
+  tokenTimeout: number
 }
