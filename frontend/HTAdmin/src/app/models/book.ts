@@ -1,3 +1,4 @@
+import { Category } from './category';
 import { SubCategory } from './sub-category';
 
 export class Book {
@@ -6,6 +7,7 @@ export class Book {
   public author: string;
   public publisher: string;
   public publicationDate: string;
+  public description: string;
   public cover: string;
   public agency: string;
   public imageUrl: string;

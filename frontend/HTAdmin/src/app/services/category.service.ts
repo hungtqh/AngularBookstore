@@ -51,13 +51,9 @@ export class CategoryService {
   }
 
   getAll() {
-    let headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
-    });
-
     return this.http.get<Category[]>(
-      this.categoryPath + '/listAllCategories',
-      { headers: headers, responseType: 'json' }
+      this.categoryPath + '/getAllCategories',
+      { responseType: 'json' }
     );
   }
 
@@ -74,23 +70,21 @@ export class CategoryService {
     );
   }
 
-  getSubCategories(categoryId: number) {
+  getSubCategories(category: Category) {
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'x-auth-token': localStorage.getItem('xAuthToken')
+      'Content-Type': 'application/json'
     });
 
     return this.http.post<SubCategory[]>(
       this.categoryPath + '/getSubCategories',
-      JSON.stringify(categoryId),
+      JSON.stringify(category),
       { headers: headers, responseType: 'json' }
     );
   }
 
   getCategoryById(id: number) {
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'x-auth-token': localStorage.getItem('xAuthToken')
+      'Content-Type': 'application/json'
     });
 
     return this.http.post<Category>(
@@ -102,8 +96,7 @@ export class CategoryService {
 
   getSubCategoryById(id: number) {
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'x-auth-token': localStorage.getItem('xAuthToken')
+      'Content-Type': 'application/json'
     });
 
     return this.http.post<SubCategory>(

@@ -36,6 +36,7 @@ export class BookEditComponent implements OnInit {
       'subCategory': new FormControl('', [Validators.required]),
       'imageUrl': new FormControl('', [Validators.required]),
       'author': new FormControl('', [Validators.required]),
+      'description': new FormControl('', [Validators.required]),
       'publisher': new FormControl('', [Validators.required]),
       'publicationDate': new FormControl('', [Validators.required]),
       'cover': new FormControl('', [Validators.required]),
@@ -65,6 +66,7 @@ export class BookEditComponent implements OnInit {
               'author': book.author,
               'publisher': book.publisher,
               'publicationDate': book.publicationDate,
+              'description': book.description,
               'cover': book.cover,
               'agency': book.agency,
               'listPrice': book.listPrice,
@@ -109,7 +111,10 @@ export class BookEditComponent implements OnInit {
   }
 
   getSubCategories() {
-    this.categoryService.getSubCategories(this.categoryId).subscribe(
+    let category = new Category();
+    category.id = this.categoryId;
+
+    this.categoryService.getSubCategories(category).subscribe(
       subCategories => {
         this.subCategories = subCategories;
         this.bookForm.get('category').setValue(this.categoryId);
@@ -131,10 +136,11 @@ export class BookEditComponent implements OnInit {
     }
 
     let title = this.bookForm.get('title').value;
-    let subCategoryId = this.bookForm.get('subCategory').value;
+    let subCategoryId = +this.bookForm.get('subCategory').value;
     let imageUrl = this.bookForm.get('imageUrl').value;
     let author = this.bookForm.get('author').value;
     let publisher = this.bookForm.get('publisher').value;
+    let description = this.bookForm.get('description').value;
     let publicationDate = this.bookForm.get('publicationDate').value;
     let cover = this.bookForm.get('cover').value;
     let agency = this.bookForm.get('agency').value;
@@ -152,6 +158,7 @@ export class BookEditComponent implements OnInit {
     this.book.subCategory = subCategory;
     this.book.imageUrl = imageUrl;
     this.book.author = author;
+    this.book.description = description;
     this.book.publisher = publisher;
     this.book.publicationDate = publicationDate;
     this.book.cover = cover;

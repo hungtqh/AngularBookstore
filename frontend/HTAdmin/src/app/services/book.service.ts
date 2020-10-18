@@ -17,6 +17,8 @@ export class BookService {
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
 
+    console.log(book);
+
     return this.http.post(
       this.bookPath + '/addBook',
       JSON.stringify(book),

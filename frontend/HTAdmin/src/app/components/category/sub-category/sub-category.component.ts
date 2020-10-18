@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Category } from 'src/app/models/category';
 import { SubCategory } from 'src/app/models/sub-category';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -20,7 +21,10 @@ export class SubCategoryComponent implements OnInit {
       if (params['id']) {
         this.id = params['id'];
 
-        this.categoryService.getSubCategories(this.id).subscribe(
+        let category = new Category();
+        category.id = this.id;
+
+        this.categoryService.getSubCategories(category).subscribe(
           subCategories => {
             this.subCategories = subCategories;
           },

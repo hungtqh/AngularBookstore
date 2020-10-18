@@ -19,7 +19,7 @@
                         <td>{{book.id}}</td>
                         <td>{{book.title}}</td>
                         <td><img [src]="book.imageUrl" class="img-thumbnail"></td>
-                        <td>{{book.subCategory.name}}</td>
+                        <td>{{book.subCategory.category.name}}</td>
                         <td>{{book.listPrice | currency: 'VND'}}</td>
                         <td>
                             <a title="Sửa" routerLink="edit/{{book.id}}" class="btn btn-outline-secondary btn-sm mr-1"><i class="fa fa-pencil"></i></a>
