@@ -1,0 +1,26 @@
+<!-- Hero Section Begin -->
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>DANH MỤC SÁCH</span>
+                    </div>
+                    <ul>
+                        <li><a href="#">Sách bán chạy</a></li>
+                        <li><a href="#">Sách mới phát hành</a></li>
+                        <li *ngFor="let category of categories"><a routerLink="/category/{{category.id}}">{{category.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__catetogies">
+                    <p><i class="fa fa-phone"></i> Hotline: <span>0344885556</span> | Hỗ trợ 24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->

@@ -13,6 +13,9 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { NotificationModalComponent } from './utils/notification-modal/notification-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './utils/material.module';
+import { MainCategoryComponent } from './components/header/main-category/main-category.component';
+import { CategoryShoppingComponent } from './components/category-shopping/category-shopping.component';
+import { BookListComponent } from './components/category-shopping/book-list/book-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { MaterialModule } from './utils/material.module';
     FooterComponent,
     SpinnerComponent,
     MyAccountComponent,
-    NotificationModalComponent
+    NotificationModalComponent,
+    MainCategoryComponent,
+    CategoryShoppingComponent,
+    BookListComponent
   ],
   imports: [
     BrowserModule,

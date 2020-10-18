@@ -25,93 +25,96 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="header__logo">
-                    <a href="/home"><img src="../assets/img/logo.png" alt=""></a>
+    <div class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="/home"><img src="../assets/img/logo.png" alt=""></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="hero__search">
-                    <div class="hero__search__form">
-                        <form>
-                            <input type="text" placeholder="Bạn cần tìm gì?">
-                            <button type="submit" class="site-btn">Tìm kiếm</button>
-                        </form>
-                    </div>
+                <div class="col-lg-6">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form>
+                                <input type="text" placeholder="Bạn cần tìm gì?">
+                                <button type="submit" class="site-btn">Tìm kiếm</button>
+                            </form>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3 header__btn__wrap">
-                <div class="header__btn account">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-user"></i></a></li>
-                    </ul>
-                    <div class="header__btn__text"><span class="account_name">{{user && loggedIn ? 'Chào ' + user.customer.fullName.substring(0, 3) + '...' : 'Tài khoản'}}</span>
+                <div class="col-lg-3 header__btn__wrap">
+                    <div class="header__btn account">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-user"></i></a></li>
+                        </ul>
+                        <div class="header__btn__text"><span class="account_name">{{user && loggedIn ? 'Chào ' + user.customer.fullName.substring(0, 3) + '...' : 'Tài khoản'}}</span>
+                        </div>
+
+                        <!-- Login Options -->
+                        <div class="toggler cVRwHa" *ngIf="!loggedIn">
+                            <button (click)="onSwitchMode('login')" class="account-btn dYkBsI" data-toggle="modal" data-target="#accountModal">Đăng
+                                nhập</button>
+                            <button (click)="onSwitchMode('register')" class="account-btn dYkBsI" data-toggle="modal" data-target="#accountModal">Tạo tài
+                                khoản</button>
+                            <button class="account-btn eqGBml" (click)="onLoginFacebook()">
+                                <span class="gUdFI"><i class="fa fa-facebook-square icon"></i>
+                                </span>Đăng nhập bằng
+                                Facebook
+                            </button>
+                            <button (click)="onLoginGoogle()" class="account-btn fpkFKZ"><span class="gUdFI"><i
+                                        class="fa fa-google icon"></i></span>Đăng nhập
+                                bằng
+                                Google
+                            </button>
+                        </div>
+
+                        <!-- My Account Options -->
+                        <div class="toggler cVRwHa" *ngIf="loggedIn">
+                            <a href="/sales/order/history?src=header_my_account">
+                                <p title="Đơn hàng của tôi" class="cIuUsX">Đơn hàng của tôi</p>
+                            </a>
+                            <a href="/customer/notification?src=header_my_account">
+                                <p title="Thông báo của tôi" class="cIuUsX">
+                                    Thông báo của tôi <span class="badge">0</span></p>
+                            </a>
+                            <a routerLink='my-account' [queryParams]="{page: 'profile'}">
+                                <p title="Tài khoản của tôi" class="cIuUsX">Tài khoản của tôi</p>
+                            </a>
+                            <a href="/nhan-xet-san-pham-ban-da-mua?src=header_my_account">
+                                <p title="Nhận xét sản phẩm đã mua" class="cIuUsX">
+                                    Nhận xét sản phẩm đã mua</p>
+                            </a>
+
+                            <a href="/customer/coupons?src=header_my_account">
+                                <p title="Mã giảm giá" class="cIuUsX"><span class="icon"><img
+                                            src="https://frontend.tikicdn.com/_desktop-next/static/img/mycoupon/coupon_code.svg"></span><span class="content"><span>Mã giảm giá</span><br><span>Bạn đang có <b>0</b> mã giảm
+                                            giá</span></span>
+                                </p>
+                            </a>
+                            <a href="/customer/reward?src=header_my_account">
+                                <p title="Thông tin Tiki Xu" class="Userstyle__UserDropDownItem-sc-6e6am-12 cIuUsX">
+                                    <span class="icon"><img
+                                            src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/tikixu.svg"></span><span class="content"><span>Thông tin Huta Xu</span><br><span>Bạn đang có <b>0</b>
+                                            Huta
+                                            xu</span></span>
+                                </p>
+                            </a>
+
+                            <a (click)="onLogout()">
+                                <p title="Thoát tài khoản" class="Userstyle__UserDropDownItem-sc-6e6am-12 cIuUsX">Thoát tài khoản
+                                </p>
+                            </a>
+                        </div>
+
                     </div>
-
-                    <!-- Login Options -->
-                    <div class="toggler cVRwHa" *ngIf="!loggedIn">
-                        <button (click)="onSwitchMode('login')" class="account-btn dYkBsI" data-toggle="modal" data-target="#accountModal">Đăng
-                            nhập</button>
-                        <button (click)="onSwitchMode('register')" class="account-btn dYkBsI" data-toggle="modal" data-target="#accountModal">Tạo tài
-                            khoản</button>
-                        <button class="account-btn eqGBml" (click)="onLoginFacebook()">
-                            <span class="gUdFI"><i class="fa fa-facebook-square icon"></i>
-                            </span>Đăng nhập bằng
-                            Facebook
-                        </button>
-                        <button (click)="onLoginGoogle()" class="account-btn fpkFKZ"><span class="gUdFI"><i
-                                    class="fa fa-google icon"></i></span>Đăng nhập
-                            bằng
-                            Google
-                        </button>
+                    <div class="header__btn header__cart">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        </ul>
+                        <div class="header__btn__text"><span>Giỏ hàng</span></div>
                     </div>
-
-                    <!-- My Account Options -->
-                    <div class="toggler cVRwHa" *ngIf="loggedIn">
-                        <a href="/sales/order/history?src=header_my_account">
-                            <p title="Đơn hàng của tôi" class="cIuUsX">Đơn hàng của tôi</p>
-                        </a>
-                        <a href="/customer/notification?src=header_my_account">
-                            <p title="Thông báo của tôi" class="cIuUsX">
-                                Thông báo của tôi <span class="badge">0</span></p>
-                        </a>
-                        <a routerLink='my-account' [queryParams]="{page: 'profile'}">
-                            <p title="Tài khoản của tôi" class="cIuUsX">Tài khoản của tôi</p>
-                        </a>
-                        <a href="/nhan-xet-san-pham-ban-da-mua?src=header_my_account">
-                            <p title="Nhận xét sản phẩm đã mua" class="cIuUsX">
-                                Nhận xét sản phẩm đã mua</p>
-                        </a>
-
-                        <a href="/customer/coupons?src=header_my_account">
-                            <p title="Mã giảm giá" class="cIuUsX"><span class="icon"><img
-                                        src="https://frontend.tikicdn.com/_desktop-next/static/img/mycoupon/coupon_code.svg"></span><span class="content"><span>Mã giảm giá</span><br><span>Bạn đang có <b>0</b> mã giảm
-                                        giá</span></span>
-                            </p>
-                        </a>
-                        <a href="/customer/reward?src=header_my_account">
-                            <p title="Thông tin Tiki Xu" class="Userstyle__UserDropDownItem-sc-6e6am-12 cIuUsX">
-                                <span class="icon"><img
-                                        src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/tikixu.svg"></span><span class="content"><span>Thông tin Huta Xu</span><br><span>Bạn đang có <b>0</b> Huta
-                                        xu</span></span>
-                            </p>
-                        </a>
-
-                        <a (click)="onLogout()">
-                            <p title="Thoát tài khoản" class="Userstyle__UserDropDownItem-sc-6e6am-12 cIuUsX">Thoát tài khoản
-                            </p>
-                        </a>
-                    </div>
-
-                </div>
-                <div class="header__btn header__cart">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                    </ul>
-                    <div class="header__btn__text"><span>Giỏ hàng</span></div>
                 </div>
             </div>
         </div>
@@ -317,39 +320,4 @@
         </div>
     </div>
 </div>
-
-<!-- Hero Section Begin -->
-<section class="hero hero-normal">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="hero__categories">
-                    <div class="hero__categories__all">
-                        <i class="fa fa-bars"></i>
-                        <span>DANH MỤC SÁCH</span>
-                    </div>
-                    <ul>
-                        <li><a href="#">Sách Bán Chạy</a></li>
-                        <li><a href="#">Sách Mới Phát Hành</a></li>
-                        <li><a href="#">Sách Kinh Tế</a></li>
-                        <li><a href="#">Sách Văn Học</a></li>
-                        <li><a href="#">Sách Thường Thức - Đời Sống</a></li>
-                        <li><a href="#">Sách Thiếu Nhi</a></li>
-                        <li><a href="#">Sách Phát Triển Bản Thân</a></li>
-                        <li><a href="#">Sách Tin Học - Ngoại Ngữ</a></li>
-                        <li><a href="#">Sách Chuyên Ngành</a></li>
-                        <li><a href="#">Sách Giáo Khoa - Giáo Trình</a></li>
-                        <li><a href="#">Sách Ngoại Văn</a></li>
-                        <li><a href="#">Văn Phòng Phẩm</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="hero__catetogies">
-                    <p><i class="fa fa-phone"></i> Hotline: <span>0344885556</span> | Hỗ trợ 24/7</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Hero Section End -->
+<app-main-category></app-main-category>

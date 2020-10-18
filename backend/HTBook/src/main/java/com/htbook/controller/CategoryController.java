@@ -22,8 +22,8 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@GetMapping("/listAllCategories") 
-	public List<Category> listAll() {
+	@GetMapping("/getAllCategories") 
+	public List<Category> getAllCategories() {
 		return categoryService.findAll();
 	}
 	
@@ -39,8 +39,8 @@ public class CategoryController {
 	}
 	
 	@PostMapping("/getSubCategories") 
-	public List<SubCategory> getSubCategories(@RequestBody Long id) {
-		return categoryService.getSubCategories(new Category(id));
+	public List<SubCategory> getSubCategories(@RequestBody Category category) {
+		return categoryService.getSubCategories(category);
 	}
 	
 	@PostMapping("/getCategoryById") 

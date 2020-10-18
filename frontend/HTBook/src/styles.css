@@ -964,7 +964,7 @@ input.ng-invalid.ng-touched {
 }
 
 .hero.hero-normal {
-    margin-bottom: 2px;
+    background-color: rgb(24, 158, 255);
 }
 
 .hero.hero-normal .hero__categories {
@@ -987,14 +987,14 @@ input.ng-invalid.ng-touched {
 .hero__categories__all {
     background: rgb(24, 158, 255);
     position: relative;
-    padding: 10px 25px 10px 40px;
+    padding: 10px 25px 10px 5px;
     cursor: pointer;
 }
 
 .hero__categories__all i {
     font-size: 16px;
     color: #ffffff;
-    margin-right: 10px;
+    margin-right: 50px;
 }
 
 .hero__categories__all span {
@@ -1045,6 +1045,10 @@ input.ng-invalid.ng-touched {
     font-weight: 400;
     letter-spacing: 0px;
     height: 100%;
+}
+
+.hero__categories ul li a:hover {
+    color: #249BC8;
 }
 
 .hero .col-lg-9 .hero__catetogies {
@@ -1117,7 +1121,7 @@ input.ng-invalid.ng-touched {
     right: 0;
     top: -1px;
     bottom: 1px;
-    margin-top: 1px;
+    margin-bottom: -2px;
 }
 
 .hero__search__phone {

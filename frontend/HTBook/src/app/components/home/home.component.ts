@@ -19,10 +19,6 @@ export class HomeComponent implements OnInit {
 
     $('.hero__categories ul').addClass('d-block');
 
-    // $('.hero__categories__all').on('click', function () {
-    //   $('.hero__categories ul').slideToggle(400);
-    // });
-
     /*-----------------------
         Categories Slider
     ------------------------*/

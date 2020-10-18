@@ -21,20 +21,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService uDetailsService;
 
 	// need to change later
-	private static final String[] PUBLIC_MATCHERS = { "" + "/css/**", "/js/**", "/image/**", "/book/**",
-			"/customer/register", "/user/login-google", "/user/login-facebook" };
+	private static final String[] PUBLIC_MATCHERS = { "" + "/css/**", "/js/**", "/image/**", 
+			"/book/get**", "/book/count**",
+			"/customer/register", "/user/login-google", "/user/login-facebook", "/category/get**" };
 
+	private static final String[] ADMIN_MATCHERS = {"/admin/**"};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 //		http.httpBasic().and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
 //				.permitAll().anyRequest().authenticated();
+		
 		http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
-		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-		.antMatchers(PUBLIC_MATCHERS)
-				.permitAll().anyRequest().authenticated();
+		.antMatchers(ADMIN_MATCHERS).access("hasRole('ROLE_ADMIN')")
+		.antMatchers(PUBLIC_MATCHERS).permitAll()
+		.anyRequest().authenticated();
 
-		// Chỉ cho phép user có quyền ADMIN hoặc USER truy cập đường dẫn /user/**
-		//http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");
 	}
 
 	@Autowired

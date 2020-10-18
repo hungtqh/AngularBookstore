@@ -2,6 +2,7 @@ package com.htbook.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +32,9 @@ public class Book {
 	private String sku;
 	private int quantityInStock;
 	private boolean active;
+	
+	@Column(columnDefinition="text")
+	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name = "sub_category_id", nullable = false)
@@ -73,6 +77,14 @@ public class Book {
 
 	public String getPublicationDate() {
 		return publicationDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setPublicationDate(String publicationDate) {
@@ -174,6 +186,4 @@ public class Book {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-	
-	
 }
